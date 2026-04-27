@@ -9,18 +9,25 @@
 
 const fs = require('fs');
 const path = require('path');
+const { buildDiagramSpecs } = require('./lib/diagram-intent-parser');
+const { renderDiagram } = require('./lib/diagram-renderer');
 
 let PptxGenJS;
-try {
-  PptxGenJS = require('pptxgenjs');
-} catch (err) {
-  console.error('[ERROR] 缺少依赖 pptxgenjs，请先执行 npm install');
-  process.exit(1);
+function getPptxGenJS() {
+  if (PptxGenJS) return PptxGenJS;
+  try {
+    PptxGenJS = require('pptxgenjs');
+    return PptxGenJS;
+  } catch (err) {
+    throw new Error('缺少依赖 pptxgenjs，请先执行 npm install');
+  }
 }
 
 const ROOT = path.resolve(__dirname, '..');
 const STORYBOARD_PATH = path.join(ROOT, 'output/05-ppt-storyboard/05_ppt_storyboard.md');
 const OUTPUT_DIR = path.join(ROOT, 'output/06-ppt-output');
+const DIAGRAM_SPEC_DIR = path.join(ROOT, 'output/05b-diagram-spec');
+const DIAGRAM_SPEC_FILE = path.join(DIAGRAM_SPEC_DIR, '05b_diagram_specs.json');
 const OUTPUT_NAME = process.argv[2] || 'tencent-waic-visual-system-v02.pptx';
 const OUTPUT_FILE = path.join(OUTPUT_DIR, OUTPUT_NAME);
 
@@ -256,8 +263,9 @@ function addCommonPageFrame(pptx, slide, s, total) {
   });
 }
 
-function buildPpt(slides) {
-  const pptx = new PptxGenJS();
+function buildPpt(slides, diagramSpecs) {
+  const Pptx = getPptxGenJS();
+  const pptx = new Pptx();
   pptx.layout = 'LAYOUT_WIDE'; // 16:9
   pptx.author = '000-EI-workflow';
   pptx.subject = 'Storyboard to Editable PPTX';
@@ -266,6 +274,7 @@ function buildPpt(slides) {
 
   const total = slides.length;
   for (const s of slides) {
+    const spec = diagramSpecs.find((d) => d.slideNumber === s.no);
     const slide = pptx.addSlide();
 
     slide.background = { color: 'FFFFFF' };
@@ -312,28 +321,33 @@ function buildPpt(slides) {
       }
     );
 
-    // 图示占位框（可编辑形状）
-    slide.addShape(pptx.ShapeType.roundRect, {
-      x: 7.45,
-      y: 1.3,
-      w: 5.25,
-      h: 5.3,
-      rectRadius: 0.04,
-      line: { color: 'B8C4D9', pt: 1.2 },
-      fill: { color: 'F7F9FC' },
-    });
+    const shouldRenderDiagram = Boolean(spec && spec.diagramNeeded && spec.confidence >= 0.45);
+    if (shouldRenderDiagram) {
+      renderDiagram(slide, spec);
+    } else {
+      // 保守回退：低置信度页保持文本页 + 占位框
+      slide.addShape(pptx.ShapeType.roundRect, {
+        x: 7.45,
+        y: 1.3,
+        w: 5.25,
+        h: 5.3,
+        rectRadius: 0.04,
+        line: { color: 'B8C4D9', pt: 1.2 },
+        fill: { color: 'F7F9FC' },
+      });
 
-    slide.addText(`图示/图片占位：${s.imageAdvice || '需人工补充'}`, {
-      x: 7.8,
-      y: 3.5,
-      w: 4.55,
-      h: 0.9,
-      align: 'center',
-      fontSize: 11,
-      color: '6E7785',
-      fontFace: 'Arial',
-      valign: 'mid',
-    });
+      slide.addText(`图示/图片占位：${s.imageAdvice || '需人工补充'}`, {
+        x: 7.8,
+        y: 3.5,
+        w: 4.55,
+        h: 0.9,
+        align: 'center',
+        fontSize: 11,
+        color: '6E7785',
+        fontFace: 'Arial',
+        valign: 'mid',
+      });
+    }
 
     addCommonPageFrame(pptx, slide, s, total);
 
@@ -356,9 +370,13 @@ function buildPpt(slides) {
       .map((x) => `- 备用文本：${x}`)
       .join('\n');
     slide.addNotes(
-      `\n[Notes]\n- 页面目标：${s.pageGoal || '需人工补充'}\n- 建议版式：${s.layoutAdvice || '需人工补充'}\n- 设计注意事项：${s.designNotes || '需人工补充'}\n- 视觉系统规则：${s.visualRules || '需人工补充'}\n- 人工补充项：${
+      `\n[Notes]\n- 页面目标：${s.pageGoal || '需人工补充'}\n- 建议版式：${s.layoutAdvice || '需人工补充'}\n- 设计注意事项：${s.designNotes || '需人工补充'}\n- 视觉系统规则：${s.visualRules || '需人工补充'}\n- 图示识别：${
+        spec ? `${spec.diagramType} (confidence=${spec.confidence})` : 'none'
+      }\n- 人工补充项：${
         needsManual ? s.manualFlag || '需人工补充' : s.manualFlag || '否'
-      }\n${noteOverflow ? `${noteOverflow}\n` : ''}${noteFreeform ? `${noteFreeform}\n` : ''}`
+      }\n${!shouldRenderDiagram ? '- 该页图示需人工补充。\n' : ''}${noteOverflow ? `${noteOverflow}\n` : ''}${
+        noteFreeform ? `${noteFreeform}\n` : ''
+      }`
     );
   }
 
@@ -372,6 +390,7 @@ async function main() {
   }
 
   ensureDir(OUTPUT_DIR);
+  ensureDir(DIAGRAM_SPEC_DIR);
   const md = fs.readFileSync(STORYBOARD_PATH, 'utf-8');
   const { slides, mode, debugHeadings } = parseStoryboard(md);
 
@@ -384,8 +403,11 @@ async function main() {
     process.exit(1);
   }
 
+  const diagramSpecs = buildDiagramSpecs(slides);
+  fs.writeFileSync(DIAGRAM_SPEC_FILE, JSON.stringify(diagramSpecs, null, 2), 'utf-8');
+
   const missingCore = slides.filter((s) => !s.contentPoints || s.contentPoints.length === 0).map((s) => s.no);
-  const pptx = buildPpt(slides);
+  const pptx = buildPpt(slides, diagramSpecs);
   await pptx.writeFile({ fileName: OUTPUT_FILE });
 
   const logPath = path.join(OUTPUT_DIR, 'pptx-build-log.md');
@@ -397,6 +419,8 @@ async function main() {
     `- Output: ${path.relative(ROOT, OUTPUT_FILE)}`,
     `- Slides: ${slides.length}`,
     `- Parse Mode: ${mode}`,
+    `- Diagram Spec: ${path.relative(ROOT, DIAGRAM_SPEC_FILE)}`,
+    `- Diagram Enabled Slides: ${diagramSpecs.filter((d) => d.diagramNeeded && d.confidence >= 0.45).length}`,
     '- Layout: 16:9 (LAYOUT_WIDE)',
     '- Editable Objects: title text box / content text box / shape placeholder / page number / speaker notes',
     `- Missing core-content slides: ${missingCore.length ? missingCore.join(', ') : 'none'}`,
