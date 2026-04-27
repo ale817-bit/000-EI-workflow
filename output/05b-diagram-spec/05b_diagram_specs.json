@@ -1,0 +1,957 @@
+[
+  {
+    "slideNumber": 1,
+    "slideTitle": "封面：腾讯 WAIC 展厅平面视觉系统方案",
+    "diagramNeeded": false,
+    "diagramType": "card-cluster",
+    "confidence": 0.35,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "项目名称与场景（WAIC 腾讯参展）"
+        },
+        {
+          "id": "n2",
+          "label": "汇报主题（平面视觉系统）"
+        },
+        {
+          "id": "n3",
+          "label": "汇报版本与日期"
+        },
+        {
+          "id": "n4",
+          "label": "汇报方信息"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "项目名称与场景（WAIC 腾讯参展）"
+        },
+        {
+          "id": "n2",
+          "label": "汇报主题（平面视觉系统）"
+        },
+        {
+          "id": "n3",
+          "label": "汇报版本与日期"
+        },
+        {
+          "id": "n4",
+          "label": "汇报方信息"
+        }
+      ]
+    },
+    "layoutHint": "全屏主标题 + 底部信息条。"
+  },
+  {
+    "slideNumber": 2,
+    "slideTitle": "项目背景与任务理解：为什么需要统一视觉系统",
+    "diagramNeeded": true,
+    "diagramType": "relationship-map",
+    "confidence": 0.59,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "center": "项目背景与任务理解",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "项目目标（可感知、可交互、可信赖）"
+        },
+        {
+          "id": "n2",
+          "label": "业务沟通目标与品牌目标"
+        },
+        {
+          "id": "n3",
+          "label": "输出边界（平面视觉系统，不含施工结构）"
+        },
+        {
+          "id": "n4",
+          "label": "当前阶段成果概览"
+        }
+      ]
+    },
+    "layoutHint": "左文字右图示（总分结构）。"
+  },
+  {
+    "slideNumber": 3,
+    "slideTitle": "输入资料与判断边界：哪些已确认、哪些待确认",
+    "diagramNeeded": true,
+    "diagramType": "matrix",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "xAxis": "横轴维度",
+      "yAxis": "纵轴维度",
+      "quadrants": [
+        {
+          "name": "Q1",
+          "text": "主要输入文件清单"
+        },
+        {
+          "name": "Q2",
+          "text": "已确认信息类型"
+        },
+        {
+          "name": "Q3",
+          "text": "待确认信息类型（PDF/OCR/备注）"
+        },
+        {
+          "name": "Q4",
+          "text": "对方案深度的影响"
+        }
+      ]
+    },
+    "layoutHint": "双栏清单 + 状态标签。"
+  },
+  {
+    "slideNumber": 4,
+    "slideTitle": "叙事结构总览：从“AI 伙伴”到“AI 生态”",
+    "diagramNeeded": true,
+    "diagramType": "timeline",
+    "confidence": 0.95,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "一句话主线"
+        },
+        {
+          "id": "n2",
+          "label": "起承转合节奏"
+        },
+        {
+          "id": "n3",
+          "label": "三大板块映射"
+        },
+        {
+          "id": "n4",
+          "label": "观众理解路径"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "一句话主线"
+        },
+        {
+          "id": "n2",
+          "label": "起承转合节奏"
+        },
+        {
+          "id": "n3",
+          "label": "三大板块映射"
+        },
+        {
+          "id": "n4",
+          "label": "观众理解路径"
+        }
+      ]
+    },
+    "layoutHint": "横向流程图（四段式）。"
+  },
+  {
+    "slideNumber": 5,
+    "slideTitle": "视觉策略总览：双轴友邻策略框架",
+    "diagramNeeded": true,
+    "diagramType": "relationship-map",
+    "confidence": 0.71,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "center": "视觉策略总览",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "视觉策略核心"
+        },
+        {
+          "id": "n2",
+          "label": "“友/邻”双轴定义"
+        },
+        {
+          "id": "n3",
+          "label": "品牌约束承接逻辑"
+        },
+        {
+          "id": "n4",
+          "label": "策略到系统的转译路径"
+        }
+      ]
+    },
+    "layoutHint": "中心辐射图（中间概念 + 四周模块）。"
+  },
+  {
+    "slideNumber": 6,
+    "slideTitle": "视觉概念命名评估：三案对比与推荐",
+    "diagramNeeded": true,
+    "diagramType": "comparison",
+    "confidence": 0.83,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "columns": [
+        {
+          "title": "维度 1",
+          "bullets": [
+            "三个候选概念名称"
+          ]
+        },
+        {
+          "title": "维度 2",
+          "bullets": [
+            "各自适用性"
+          ]
+        },
+        {
+          "title": "维度 3",
+          "bullets": [
+            "各自风险点"
+          ]
+        }
+      ]
+    },
+    "layoutHint": "三列对照表 + 底部推荐条。"
+  },
+  {
+    "slideNumber": 7,
+    "slideTitle": "腾讯品牌规范承接方式：规则优先级与复核机制",
+    "diagramNeeded": true,
+    "diagramType": "process-flow",
+    "confidence": 0.59,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "manual_tencent_brand_notes 优先级"
+        },
+        {
+          "id": "n2",
+          "label": "与 PDF 原规范关系"
+        },
+        {
+          "id": "n3",
+          "label": "人工复核机制"
+        },
+        {
+          "id": "n4",
+          "label": "冲突处理原则"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "manual_tencent_brand_notes 优先级"
+        },
+        {
+          "id": "n2",
+          "label": "与 PDF 原规范关系"
+        },
+        {
+          "id": "n3",
+          "label": "人工复核机制"
+        },
+        {
+          "id": "n4",
+          "label": "冲突处理原则"
+        }
+      ]
+    },
+    "layoutHint": "上下两层（规则层/复核层）。"
+  },
+  {
+    "slideNumber": 8,
+    "slideTitle": "AI 友邻视觉转译：友与邻如何同场成立",
+    "diagramNeeded": true,
+    "diagramType": "comparison",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "columns": [
+        {
+          "title": "维度 1",
+          "bullets": [
+            "“友”属性（亲和互动）"
+          ]
+        },
+        {
+          "title": "维度 2",
+          "bullets": [
+            "“邻”属性（专业可靠）"
+          ]
+        },
+        {
+          "title": "维度 3",
+          "bullets": [
+            "同场平衡方法"
+          ]
+        }
+      ]
+    },
+    "layoutHint": "左右对照 + 中间平衡轴。"
+  },
+  {
+    "slideNumber": 9,
+    "slideTitle": "斜 8 度图形母题策略：结构而非装饰",
+    "diagramNeeded": true,
+    "diagramType": "comparison",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "columns": [
+        {
+          "title": "维度 1",
+          "bullets": [
+            "可用位置"
+          ]
+        },
+        {
+          "title": "维度 2",
+          "bullets": [
+            "不可用方式"
+          ]
+        },
+        {
+          "title": "维度 3",
+          "bullets": [
+            "动态/静态统一原则"
+          ]
+        }
+      ]
+    },
+    "layoutHint": "左“可用”右“禁用”图文对照。"
+  },
+  {
+    "slideNumber": 10,
+    "slideTitle": "色彩系统：主色主导与辅助色边界",
+    "diagramNeeded": false,
+    "diagramType": "comparison",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "columns": [
+        {
+          "title": "维度 1",
+          "bullets": [
+            "腾讯蓝主导规则"
+          ]
+        },
+        {
+          "title": "维度 2",
+          "bullets": [
+            "青/绿/紫辅助语义"
+          ]
+        },
+        {
+          "title": "维度 3",
+          "bullets": [
+            "高对比与低噪声场景"
+          ]
+        }
+      ]
+    },
+    "layoutHint": "颜色角色表 + 场景条带。"
+  },
+  {
+    "slideNumber": 11,
+    "slideTitle": "字体与标题系统：信息层级的阅读秩序",
+    "diagramNeeded": false,
+    "diagramType": "hierarchy",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "root": "字体与标题系统",
+      "children": [
+        {
+          "id": "n1",
+          "label": "W7/W3/思源黑体关系"
+        },
+        {
+          "id": "n2",
+          "label": "标题-正文-注释层级"
+        },
+        {
+          "id": "n3",
+          "label": "数据数字展示规则"
+        },
+        {
+          "id": "n4",
+          "label": "中英混排规则"
+        }
+      ]
+    },
+    "layoutHint": "层级阶梯图 + 示例行。"
+  },
+  {
+    "slideNumber": 12,
+    "slideTitle": "版式网格系统：从展板到屏幕的一致骨架",
+    "diagramNeeded": false,
+    "diagramType": "matrix",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "xAxis": "横轴维度",
+      "yAxis": "纵轴维度",
+      "quadrants": [
+        {
+          "name": "Q1",
+          "text": "展板网格"
+        },
+        {
+          "name": "Q2",
+          "text": "信息图网格"
+        },
+        {
+          "name": "Q3",
+          "text": "导视网格"
+        },
+        {
+          "name": "Q4",
+          "text": "屏幕/UI 与 PPT 网格"
+        }
+      ]
+    },
+    "layoutHint": "2x2 网格对照 + 底部规则说明。"
+  },
+  {
+    "slideNumber": 13,
+    "slideTitle": "展板系统：五类展板的结构模板",
+    "diagramNeeded": true,
+    "diagramType": "card-cluster",
+    "confidence": 0.59,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "主展板结构"
+        },
+        {
+          "id": "n2",
+          "label": "分区展板结构"
+        },
+        {
+          "id": "n3",
+          "label": "展项说明牌结构"
+        },
+        {
+          "id": "n4",
+          "label": "数据展板与品牌介绍展板结构"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "主展板结构"
+        },
+        {
+          "id": "n2",
+          "label": "分区展板结构"
+        },
+        {
+          "id": "n3",
+          "label": "展项说明牌结构"
+        },
+        {
+          "id": "n4",
+          "label": "数据展板与品牌介绍展板结构"
+        }
+      ]
+    },
+    "layoutHint": "五宫格模板总览。"
+  },
+  {
+    "slideNumber": 14,
+    "slideTitle": "导视 / 标识系统：远距可读与路径可达",
+    "diagramNeeded": true,
+    "diagramType": "process-flow",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "导视类型（入口/分区/方向/编号/提示）"
+        },
+        {
+          "id": "n2",
+          "label": "远距可读规则"
+        },
+        {
+          "id": "n3",
+          "label": "材质与工艺建议（平面层）"
+        },
+        {
+          "id": "n4",
+          "label": "施工联审点"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "导视类型（入口/分区/方向/编号/提示）"
+        },
+        {
+          "id": "n2",
+          "label": "远距可读规则"
+        },
+        {
+          "id": "n3",
+          "label": "材质与工艺建议（平面层）"
+        },
+        {
+          "id": "n4",
+          "label": "施工联审点"
+        }
+      ]
+    },
+    "layoutHint": "左分类树 + 右规则清单。"
+  },
+  {
+    "slideNumber": 15,
+    "slideTitle": "信息图系统：复杂信息的降压表达方法",
+    "diagramNeeded": true,
+    "diagramType": "matrix",
+    "confidence": 0.71,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "xAxis": "横轴维度",
+      "yAxis": "纵轴维度",
+      "quadrants": [
+        {
+          "name": "Q1",
+          "text": "信息图类型库"
+        },
+        {
+          "name": "Q2",
+          "text": "色彩/线条/节点/标签规则"
+        },
+        {
+          "name": "Q3",
+          "text": "降低信息压力方法"
+        },
+        {
+          "name": "Q4",
+          "text": "禁止项（粒子/装饰线）"
+        }
+      ]
+    },
+    "layoutHint": "上类型矩阵，下规则列表。"
+  },
+  {
+    "slideNumber": 16,
+    "slideTitle": "屏幕 UI / 多媒体画面系统：页面状态与交互反馈",
+    "diagramNeeded": true,
+    "diagramType": "process-flow",
+    "confidence": 0.83,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "首页/内容/数据/互动/对话式页面"
+        },
+        {
+          "id": "n2",
+          "label": "卡片与按钮规则"
+        },
+        {
+          "id": "n3",
+          "label": "状态反馈颜色语义"
+        },
+        {
+          "id": "n4",
+          "label": "动效方向约束"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "首页/内容/数据/互动/对话式页面"
+        },
+        {
+          "id": "n2",
+          "label": "卡片与按钮规则"
+        },
+        {
+          "id": "n3",
+          "label": "状态反馈颜色语义"
+        },
+        {
+          "id": "n4",
+          "label": "动效方向约束"
+        }
+      ]
+    },
+    "layoutHint": "页面家族流程图 + 规则侧栏。"
+  },
+  {
+    "slideNumber": 17,
+    "slideTitle": "宣发物料 / 周边物料系统：主视觉如何跨场景延展",
+    "diagramNeeded": false,
+    "diagramType": "card-cluster",
+    "confidence": 0.35,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "邀请函/海报/社媒长图"
+        },
+        {
+          "id": "n2",
+          "label": "手提袋/胸牌/折页/礼品包装"
+        },
+        {
+          "id": "n3",
+          "label": "与主视觉的一致性要求"
+        },
+        {
+          "id": "n4",
+          "label": "灵活与稳定的平衡规则"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "邀请函/海报/社媒长图"
+        },
+        {
+          "id": "n2",
+          "label": "手提袋/胸牌/折页/礼品包装"
+        },
+        {
+          "id": "n3",
+          "label": "与主视觉的一致性要求"
+        },
+        {
+          "id": "n4",
+          "label": "灵活与稳定的平衡规则"
+        }
+      ]
+    },
+    "layoutHint": "场景拼贴 + 规则标签。"
+  },
+  {
+    "slideNumber": 18,
+    "slideTitle": "PPT 汇报视觉系统：页面模板与视觉统一",
+    "diagramNeeded": true,
+    "diagramType": "matrix",
+    "confidence": 0.71,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "xAxis": "横轴维度",
+      "yAxis": "纵轴维度",
+      "quadrants": [
+        {
+          "name": "Q1",
+          "text": "页面类型（封面/目录/策略/规则/应用/对比/结尾）"
+        },
+        {
+          "name": "Q2",
+          "text": "各类页面版式原则"
+        },
+        {
+          "name": "Q3",
+          "text": "标题与色彩统一方法"
+        },
+        {
+          "name": "Q4",
+          "text": "与展厅系统的一致关系"
+        }
+      ]
+    },
+    "layoutHint": "模板总览矩阵。"
+  },
+  {
+    "slideNumber": 19,
+    "slideTitle": "应用场景总览：系统如何覆盖关键触点",
+    "diagramNeeded": true,
+    "diagramType": "matrix",
+    "confidence": 0.71,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "xAxis": "横轴维度",
+      "yAxis": "纵轴维度",
+      "quadrants": [
+        {
+          "name": "Q1",
+          "text": "KV、主题墙、展板、导视"
+        },
+        {
+          "name": "Q2",
+          "text": "信息图、屏幕 UI"
+        },
+        {
+          "name": "Q3",
+          "text": "宣发与周边"
+        },
+        {
+          "name": "Q4",
+          "text": "汇报体系"
+        }
+      ]
+    },
+    "layoutHint": "全景矩阵图（场景×规则）。"
+  },
+  {
+    "slideNumber": 20,
+    "slideTitle": "交付清单：文件、结构、命名与协作分工",
+    "diagramNeeded": true,
+    "diagramType": "timeline",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "设计文件类型"
+        },
+        {
+          "id": "n2",
+          "label": "文件夹结构建议"
+        },
+        {
+          "id": "n3",
+          "label": "命名规范"
+        },
+        {
+          "id": "n4",
+          "label": "人工与 AI 分工"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "设计文件类型"
+        },
+        {
+          "id": "n2",
+          "label": "文件夹结构建议"
+        },
+        {
+          "id": "n3",
+          "label": "命名规范"
+        },
+        {
+          "id": "n4",
+          "label": "人工与 AI 分工"
+        }
+      ]
+    },
+    "layoutHint": "左清单右结构树。"
+  },
+  {
+    "slideNumber": 21,
+    "slideTitle": "风险与待确认：哪些不能直接定版",
+    "diagramNeeded": true,
+    "diagramType": "matrix",
+    "confidence": 0.47,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "xAxis": "横轴维度",
+      "yAxis": "纵轴维度",
+      "quadrants": [
+        {
+          "name": "Q1",
+          "text": "PDF 未完整解析风险"
+        },
+        {
+          "name": "Q2",
+          "text": "品牌复核项"
+        },
+        {
+          "name": "Q3",
+          "text": "设备参数与材料风险"
+        },
+        {
+          "name": "Q4",
+          "text": "进入最终设计前置条件"
+        }
+      ]
+    },
+    "layoutHint": "风险分级表（P0/P1/P2）。"
+  },
+  {
+    "slideNumber": 22,
+    "slideTitle": "下一步工作建议：从规则稿到执行版",
+    "diagramNeeded": true,
+    "diagramType": "timeline",
+    "confidence": 0.95,
+    "sourceFields": [
+      "页面目标",
+      "核心内容",
+      "建议版式",
+      "建议图示 / 图片类型",
+      "设计注意事项"
+    ],
+    "diagramData": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "先完成品牌与参数复核"
+        },
+        {
+          "id": "n2",
+          "label": "进入 graphic-system-builder 细则冻结"
+        },
+        {
+          "id": "n3",
+          "label": "启动关键场景样板设计"
+        },
+        {
+          "id": "n4",
+          "label": "组织设计审查与版本封版"
+        }
+      ],
+      "stages": [
+        {
+          "id": "n1",
+          "label": "先完成品牌与参数复核"
+        },
+        {
+          "id": "n2",
+          "label": "进入 graphic-system-builder 细则冻结"
+        },
+        {
+          "id": "n3",
+          "label": "启动关键场景样板设计"
+        },
+        {
+          "id": "n4",
+          "label": "组织设计审查与版本封版"
+        }
+      ]
+    },
+    "layoutHint": "里程碑路线图（4 步）。"
+  }
+]
