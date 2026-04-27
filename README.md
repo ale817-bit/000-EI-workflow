@@ -1,2 +1,15 @@
 # 000-EI-workflow
-ments, and brand assets, with structured outputs, PPT storyboards, and archive-ready deliverables.建立一套可复用的 AI 半自动流程，用于将展厅策划案、客户需求文档、品牌资料和参考案例转化为可执行的展厅平面视觉系统，并最终形成 PPT 汇报文件和标准化归档文件夹。
+
+`000-EI-workflow` is a semi-automated workflow for exhibition graphic visual system development.
+
+It helps transform exhibition briefs, planning documents, brand materials, and references into structured deliverables:
+
+- Requirement analysis
+- Exhibition narrative structure
+- Visual strategy
+- Graphic visual system
+- PPT storyboard
+- Editable PPT output
+- Archive-ready project package
+
+This repository is designed for designers, visual strategists, exhibition planners, and AI-assisted creative workflows.
