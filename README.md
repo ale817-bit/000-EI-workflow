@@ -13,19 +13,14 @@
 3. 平面视觉策略文档（Visual Strategy）
 4. 展厅平面视觉系统文档（Graphic System）
 5. PPT 汇报 Storyboard
-6. 可生成 PPTX 的脚本基础（当前为占位）
+6. 可生成 PPTX 的脚本基础
 7. 归档说明和交付清单
 
 > 当前仓库仅搭建流程框架，不包含真实项目内容与自动化执行结果。
 
 ## 工作流程（建议）
 
-1. 将输入材料放入 `input/` 对应目录。
-2. 依据 `templates/` 模板与 `.agents/skills/` 技能说明执行各阶段工作。
-3. 在 `output/` 对应阶段目录中产出结果文档。
-4. 使用 `templates/design-review-checklist.md` 进行内部评审。
-5. 使用 `templates/archive-readme-template.md` 组织最终归档。
-6. 后续可扩展 `scripts/generate-ppt.js` 实现真实 PPTX 自动生成。
+- input-normalizer → brief-analyzer → exhibition-narrative → visual-strategy → graphic-system-builder → ppt-storyboard → ppt-design-director → pptx-output-builder → archive-producer
 
 ## 目录结构
 
@@ -34,9 +29,17 @@
 ├─ AGENTS.md
 ├─ README.md
 ├─ input/
-│  ├─ briefs/
-│  ├─ brand-assets/
-│  └─ references/
+│  ├─ raw/
+│  │  ├─ briefs/
+│  │  ├─ brand-assets/
+│  │  └─ references/
+│  ├─ normalized/
+│  │  ├─ briefs/
+│  │  ├─ brand-assets/
+│  │  ├─ references/
+│  │  ├─ images/
+│  │  └─ _index.md
+│  └─ manual-notes/
 ├─ output/
 │  ├─ 01-requirement-analysis/
 │  ├─ 02-narrative-structure/
@@ -46,43 +49,44 @@
 │  ├─ 06-ppt-output/
 │  └─ 07-archive-package/
 ├─ templates/
-│  ├─ requirement-analysis-template.md
-│  ├─ narrative-structure-template.md
-│  ├─ visual-strategy-template.md
-│  ├─ graphic-system-template.md
-│  ├─ ppt-storyboard-template.md
-│  ├─ design-review-checklist.md
-│  └─ archive-readme-template.md
-├─ .agents/
-│  └─ skills/
-│     ├─ brief-analyzer/
-│     ├─ exhibition-narrative/
-│     ├─ visual-strategy/
-│     ├─ graphic-system-builder/
-│     ├─ ppt-storyboard/
-│     └─ archive-producer/
+├─ .agents/skills/
 └─ scripts/
-   ├─ README.md
-   └─ generate-ppt.js
 ```
+
+## 如何导入新项目资料
+
+1. 把原始文件放入：
+   - `input/raw/briefs/`
+   - `input/raw/brand-assets/`
+   - `input/raw/references/`
+2. 运行标准化脚本：
+   - `npm run normalize`
+3. 检查标准化索引：
+   - `input/normalized/_index.md`
+4. 对“需人工补充”条目，补充到：
+   - `input/manual-notes/`
+5. 再执行 `brief-analyzer` 进入后续阶段。
 
 ## 使用方式
 
-### 1) 准备输入
+### 1) 输入标准化
 
-- 策划案、需求说明放入 `input/briefs/`
-- 品牌规范、LOGO、字体/色彩约束放入 `input/brand-assets/`
-- 对标案例、灵感图、历史资料放入 `input/references/`
+- 原始文件仅存放在 `input/raw/`
+- 后续工作流只读取 `input/normalized/`
+- 若存在无法自动解析项，必须在 `input/manual-notes/` 补充后再推进结论
 
 ### 2) 执行阶段任务
 
 按以下顺序使用技能与模板：
 
+- input-normalizer → 输入标准化
 - brief-analyzer → 需求解析
 - exhibition-narrative → 叙事结构
 - visual-strategy → 视觉策略
 - graphic-system-builder → 平面视觉系统
 - ppt-storyboard → 汇报 storyboard
+- ppt-design-director → 汇报视觉导演
+- pptx-output-builder → 可编辑 PPTX 生成
 - archive-producer → 归档与交付清单
 
 ### 3) 产出与复核
@@ -93,5 +97,5 @@
 
 ## 当前状态
 
-- ✅ 已完成：工作流目录、模板、技能说明、脚本占位文件。
-- ⏳ 待扩展：真实文档自动生成逻辑、PPTX 渲染与样式引擎、质量评分工具。
+- ✅ 已完成：工作流目录、模板、技能说明、标准化脚本与 PPTX 脚本框架。
+- ⏳ 待扩展：更多文件格式解析增强、质量评分工具、自动审校链路。
