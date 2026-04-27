@@ -56,3 +56,13 @@
 4. 脚本目录包含可扩展的 PPT 占位脚本与说明。
 5. 文档语言、术语和命名风格统一。
 6. 项目可被新成员在 30 分钟内理解并开始使用。
+
+
+## 7. 输入资料标准化规则（Input Normalization Rules）
+
+1. 新项目资料必须先进入 `input/raw/`，不得直接在后续阶段引用二进制原始文件。
+2. 必须先执行标准化：`npm run normalize`，生成 `input/normalized/`。
+3. 后续阶段（brief-analyzer / exhibition-narrative / visual-strategy / graphic-system-builder / ppt-storyboard / ppt-design-director / pptx-output-builder）必须优先读取 `input/normalized/`。
+4. 对无法自动解析的文件，必须在 `input/manual-notes/` 补充人工说明后再推进阶段结论。
+5. `input/raw/` 仅作原始存档，不作为最终证据输出层。
+

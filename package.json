@@ -1,0 +1,13 @@
+{
+  "name": "000-ei-workflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workflow tools for exhibition visual system and storyboard-to-pptx scaffolding",
+  "scripts": {
+    "generate:pptx": "node scripts/generate-pptx.js",
+    "normalize": "node scripts/normalize-inputs.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
+  }
+}
