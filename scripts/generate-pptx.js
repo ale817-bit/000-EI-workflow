@@ -30,38 +30,134 @@ function ensureDir(dir) {
 
 function parseStoryboard(md) {
   const lines = md.split('\n');
-  const slides = [];
-  let current = null;
-  let inCore = false;
+  const headingLines = lines
+    .filter((line) => /^#{2,3}\s+/.test(line))
+    .map((line) => line.replace(/\s+$/, ''));
 
-  for (const line of lines) {
-    const m = line.match(/^##\s+Slide\s+(\d+)｜(.+)$/);
-    if (m) {
-      if (current) slides.push(current);
-      current = { no: Number(m[1]), title: m[2].trim(), bullets: [] };
-      inCore = false;
-      continue;
+  const normalize = (text) => text.replace(/\s+/g, ' ').trim();
+  const parseSlideHeading = (line) => {
+    const m = line.match(/^(#{2,3})\s+(.+)$/);
+    if (!m) return null;
+    const body = normalize(m[2]);
+    let parsed = null;
+
+    // Slide 01｜封面：标题 / Slide 01 | 封面：标题 / Slide 01: 标题 / Slide 01 标题
+    let mm = body.match(/^Slide\s*0*(\d+)\s*[｜|:：]?\s*(.+)$/i);
+    if (mm) {
+      parsed = { no: Number(mm[1]), remain: mm[2].trim() };
     }
 
-    if (!current) continue;
-
-    if (line.trim().startsWith('- **核心内容')) {
-      inCore = true;
-      continue;
+    // P01 标题
+    if (!parsed) {
+      mm = body.match(/^P\s*0*(\d+)\s*[｜|:：]?\s*(.+)$/i);
+      if (mm) parsed = { no: Number(mm[1]), remain: mm[2].trim() };
     }
 
-    if (inCore) {
-      const b = line.match(/^\s*\d+\)\s+(.+)$/);
-      if (b) {
-        current.bullets.push(b[1].trim());
+    // 第 1 页：标题
+    if (!parsed) {
+      mm = body.match(/^第\s*0*(\d+)\s*页\s*[｜|:：]?\s*(.+)$/);
+      if (mm) parsed = { no: Number(mm[1]), remain: mm[2].trim() };
+    }
+
+    if (!parsed) return null;
+
+    let section = '';
+    let title = parsed.remain;
+    const split = parsed.remain.match(/^([^：:]+)\s*[：:]\s*(.+)$/);
+    if (split) {
+      section = split[1].trim();
+      title = split[2].trim();
+    }
+
+    return {
+      no: parsed.no,
+      section,
+      title,
+      headingRaw: body,
+      bullets: [],
+    };
+  };
+
+  const finalizeSlides = (sourceSlides) => {
+    // 清理空标题，保证最小可用结构
+    return sourceSlides
+      .filter((s) => s && (s.title || s.section || s.headingRaw))
+      .map((s) => ({
+        ...s,
+        no: Number.isFinite(s.no) && s.no > 0 ? s.no : sourceSlides.indexOf(s) + 1,
+        section: s.section || '',
+        title: s.title || s.section || s.headingRaw || `第 ${sourceSlides.indexOf(s) + 1} 页`,
+        bullets: Array.isArray(s.bullets) ? s.bullets : [],
+      }));
+  };
+
+  const collectBullets = (sourceSlides) => {
+    let current = null;
+    let inCore = false;
+    for (const line of lines) {
+      const parsed = parseSlideHeading(line);
+      if (parsed) {
+        current = sourceSlides.find((s) => s.headingRaw === parsed.headingRaw && s.no === parsed.no);
+        inCore = false;
         continue;
       }
-      if (!line.trim()) inCore = false;
+      if (!current) continue;
+      if (line.trim().startsWith('- **核心内容')) {
+        inCore = true;
+        continue;
+      }
+      if (inCore) {
+        const b = line.match(/^\s*(?:[-*]|\d+[.)、])\s+(.+)$/);
+        if (b) {
+          current.bullets.push(b[1].trim());
+          continue;
+        }
+        if (!line.trim()) inCore = false;
+      }
     }
+  };
+
+  // 主路径：标准 Slide 标题解析（支持 ## / ###）
+  const parsedSlides = [];
+  for (const line of lines) {
+    const parsed = parseSlideHeading(line);
+    if (parsed) parsedSlides.push(parsed);
+  }
+  if (parsedSlides.length) {
+    const slides = finalizeSlides(parsedSlides);
+    collectBullets(slides);
+    return { slides, mode: 'standard', debugHeadings: headingLines.slice(0, 20) };
   }
 
-  if (current) slides.push(current);
-  return slides;
+  // fallback 1: 按 ## 标题拆分
+  const h2Slides = headingLines
+    .filter((line) => /^##\s+/.test(line))
+    .map((line, idx) => ({
+      no: idx + 1,
+      section: '',
+      title: normalize(line.replace(/^##\s+/, '')),
+      headingRaw: normalize(line.replace(/^##\s+/, '')),
+      bullets: [],
+    }));
+  if (h2Slides.length >= 1) {
+    return { slides: finalizeSlides(h2Slides), mode: 'fallback-h2', debugHeadings: headingLines.slice(0, 20) };
+  }
+
+  // fallback 2: 按 ### 标题拆分
+  const h3Slides = headingLines
+    .filter((line) => /^###\s+/.test(line))
+    .map((line, idx) => ({
+      no: idx + 1,
+      section: '',
+      title: normalize(line.replace(/^###\s+/, '')),
+      headingRaw: normalize(line.replace(/^###\s+/, '')),
+      bullets: [],
+    }));
+  if (h3Slides.length >= 1) {
+    return { slides: finalizeSlides(h3Slides), mode: 'fallback-h3', debugHeadings: headingLines.slice(0, 20) };
+  }
+
+  return { slides: [], mode: 'none', debugHeadings: headingLines.slice(0, 20) };
 }
 
 function addCommonPageFrame(pptx, slide, s, total) {
@@ -113,7 +209,8 @@ function buildPpt(slides) {
     slide.background = { color: 'FFFFFF' };
 
     // 标题文本框（可编辑）
-    slide.addText(`Slide ${String(s.no).padStart(2, '0')}｜${s.title}`, {
+    const slideTitlePrefix = s.section ? `${s.section}：` : '';
+    slide.addText(`Slide ${String(s.no).padStart(2, '0')}｜${slideTitlePrefix}${s.title}`, {
       x: 0.6,
       y: 0.35,
       w: 12.1,
@@ -125,6 +222,7 @@ function buildPpt(slides) {
     });
 
     // 正文文本框（可编辑）
+    const needsManual = !s.title || s.bullets.length === 0;
     const bullets = s.bullets.length ? s.bullets : ['（待补充核心内容）'];
     slide.addText(
       bullets.map((t) => ({ text: t, options: { bullet: { indent: 18 } } })),
@@ -165,7 +263,11 @@ function buildPpt(slides) {
     addCommonPageFrame(pptx, slide, s, total);
 
     // 备注（speaker notes）
-    slide.addNotes(`\n[Notes]\n- 本页结论：${s.title}\n- 讲述顺序：先结论，再证据，再行动项。\n- 如有数据，请补充来源与口径。\n`);
+    slide.addNotes(
+      `\n[Notes]\n- 本页结论：${s.title || '需人工补充'}\n- 讲述顺序：先结论，再证据，再行动项。\n- 如有数据，请补充来源与口径。\n${
+        needsManual ? '- 需人工补充。\n' : ''
+      }`
+    );
   }
 
   return pptx;
@@ -179,10 +281,14 @@ async function main() {
 
   ensureDir(OUTPUT_DIR);
   const md = fs.readFileSync(STORYBOARD_PATH, 'utf-8');
-  const slides = parseStoryboard(md);
+  const { slides, mode, debugHeadings } = parseStoryboard(md);
 
   if (!slides.length) {
     console.error('[ERROR] 未解析到 Slide 结构，请检查 storyboard 标题格式。');
+    console.error('[DEBUG] 前 20 个标题行如下：');
+    debugHeadings.forEach((line, idx) => {
+      console.error(`${String(idx + 1).padStart(2, '0')}. ${line}`);
+    });
     process.exit(1);
   }
 
@@ -198,6 +304,7 @@ async function main() {
     `- Source: ${path.relative(ROOT, STORYBOARD_PATH)}`,
     `- Output: ${path.relative(ROOT, OUTPUT_FILE)}`,
     `- Slides: ${slides.length}`,
+    `- Parse Mode: ${mode}`,
     '- Layout: 16:9 (LAYOUT_WIDE)',
     '- Editable Objects: title text box / content text box / shape placeholder / page number / speaker notes',
     `- Missing core-content slides: ${missingCore.length ? missingCore.join(', ') : 'none'}`,
